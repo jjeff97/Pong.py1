@@ -1,6 +1,6 @@
 import turtle
 
-wn= turtle.Screen()
+wn = turtle.Screen()
 wn.title("Pong by JamesJ")
 wn.bgcolor("black")
 wn.setup(width=800, height=600)
@@ -23,7 +23,7 @@ paddle_b.shape("square")
 paddle_b.color("white")
 paddle_b.shapesize(stretch_wid=5, stretch_len=1)
 paddle_b.penup()
-paddle_b.goto(350,0)
+paddle_b.goto(350, 0)
 
 # Ball
 
@@ -37,64 +37,72 @@ ball.dx = 0.1
 ball.dy = -0.1
 
 # Function
+
+
 def paddle_a_up():
     y = paddle_a.ycor()
     y += 20
     paddle_a.sety(y)
 
+
 def paddle_a_down():
     y = paddle_a.ycor()
     y -= 20
     paddle_a.sety(y)
-    
+
+
 def paddle_b_up():
     y = paddle_b.ycor()
     y += 20
     paddle_b.sety(y)
 
+
 def paddle_b_down():
     y = paddle_b.ycor()
     y -= 20
     paddle_b.sety(y)
-    
-#Keyboard binding
+
+
+# Keyboard binding
 wn.listen()
 wn.onkeypress(paddle_a_up, "w")
 wn.onkeypress(paddle_a_down, "s")
 
 wn.onkeypress(paddle_b_up, "Up")
 wn.onkeypress(paddle_b_down, "Down")
-    
-    
+
 
 # Main Game Loop
 while True:
     wn.update()
-    
-    #Move the ball
+
+    # Move the ball
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
-    
-    #Border 
+
+    # Border
     if ball.ycor() > 290:
         ball.sety(290)
         ball.dy *= -1
-        
+
     if ball.ycor() < -290:
         ball.sety(-290)
         ball.dy *= -1
-        
+
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
-        
+
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
-        
+
     # Paddle and Ball collisions
     if (ball.xcor() > 340 and ball.ycor() < 350) and (ball.ycor() <paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
         ball.setx(340)
         ball.dx *= -1
-        
+         
+    if (ball.xcor() < -340 and ball.ycor() >  -350) and (ball.ycor() <paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
+        ball.setx(-340)
+        ball.dx *= -1
     
